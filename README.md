@@ -60,27 +60,30 @@ The rules for SampleDataInputFormat can be passed either by MapReduce job proper
 
 ### Hive
 
-The easiest way to use SampleDataInputFormat is through Hive. An external table is created that points to a real HDFS directory.
+The easiest way to use SampleDataInputFormat is through Hive. An external table is created that points to a real HDFS directory, however no data is read from it.
 
 The data generation rules are specified in the Hive table DDL's TBLPROPERTIES. Each SELECT from the table will dynamically bring back a new set of sample records.
 
 The Hive syntax can be gleaned from the [example DDL script](https://github.com/jeremybeard/SampleDataInputFormat/blob/master/src/scripts/createtable.sql).
 
+
 It is important when using Hive that you force the query to use MapReduce. If you run a simple
 
     SELECT * FROM table;
 
-then Hive will skip MR and just use the InputFormat to return the rows to screen. This won't be able to see all the rule properties you've entered in. So instead, if you want to do such a simple query do more like
+then Hive will skip MR and just use the InputFormat to return the rows to screen, but the rules will not be passed to it. If you want to do such a simple query you can run
 
     SELECT * FROM table WHERE 1=1;
 
-You can also change the parameters without recreating the table from a script or within the shell, for example
+
+You can also change the parameters from a script or within the shell without recreating the table, for example
 
     SET sampledata.records=100000;
 
 These changes persist only for the Hive session.
 
-Note that due to some poor design decisions in Hive, it will require extra code to enable Hive to use multiple mappers with this InputFormat. Until that is added Hive will only run this with a single mapper.
+
+Note that due to some poor design decisions in Hive it will require extra code to SampleDataInputFormat to enable Hive to use multiple mappers. Until that is added Hive will only run this with a single mapper.
 
 ### MapReduce
 
