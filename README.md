@@ -42,7 +42,7 @@ The rules for SampleDataInputFormat can be passed either by MapReduce job proper
     <td>sampledata.fields.{fieldname}.nulls.weight</td><td>Chance that a value will be NULL</td><td>0.0 to 1.0</td>
   </tr>
   <tr>
-    <td>sampledata.fields.{fieldname}.method</td><td>How to generate this field</td><td>"range" or "enum" or "uuid"</td>
+    <td>sampledata.fields.{fieldname}.method</td><td>How to generate this field</td><td>"range", "enum" or "uuid"</td>
   </tr>
   <tr>
     <td>sampledata.fields.{fieldname}.range.start</td><td>Lower-bound of range. Not valid for string.</td><td>Inclusive</td>
@@ -66,18 +66,10 @@ The data generation rules are specified in the Hive table DDL's TBLPROPERTIES. E
 The Hive DDL syntax can be gleaned from the [example DDL script](http://github.mtv.cloudera.com/jeremy/SampleDataInputFormat/blob/master/src/scripts/createtable.sql).
 
 
-It is important when using Hive that you force the query to use MapReduce. If you run a SELECT * with no filters or joins, such as
-
-    SELECT * FROM table LIMIT 100;
-
-Hive will skip MapReduce and just use the InputFormat to return the rows to screen, but the rules will not be passed to it. You can force MapReduce by adding a tautology filter, such as:
-
-    SELECT * FROM table WHERE 1=1 LIMIT 100;
+It is important when using Hive that you force the query to use MapReduce. If you run a SELECT * with no filters or joins, such as ``SELECT * FROM table LIMIT 100;`` Hive will skip MapReduce and just use the InputFormat to return the rows to screen, but the rules will not be passed to it. You can force MapReduce by adding a tautology filter, such as ``SELECT * FROM table WHERE 1=1 LIMIT 100;``
 
 
-You can override the parameters from a script or within the Hive shell, for example:
-
-    SET sampledata.records=100000;
+You can override the parameters from a script or within the Hive shell, for example: ``SET sampledata.records=100000;``
 
 
 Note that due to some poor design decisions in Hive it will require extra code to SampleDataInputFormat to enable Hive to use multiple mappers. Until that is added Hive will only run this with a single mapper.
