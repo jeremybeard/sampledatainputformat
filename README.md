@@ -35,7 +35,12 @@ Example Hive DDL: [createtable.sql](https://github.com/jeremybeard/SampleDataInp
 
 It is important when using Hive that you force the query to use MapReduce. If you run a simple ``SELECT * FROM table;`` then Hive will skip MR and just use the InputFormat to return the rows to screen. This won't be able to see all the rule properties you've entered in. So instead, if you want to do such a simple query do more like ``SELECT * FROM table WHERE 1=1;``
 
-You can also change the parameters without recreating the table from a script or within the shell, for example ``SET sampledata.records=100000;`` These changes persist only for the Hive session.
+You can also change the parameters without recreating the table from a script or within the shell, for example
+	SET sampledata.records=100000;
+	``SET sampledata.records=100000;``
+		SET sampledata.records=100000;
+		``SET sampledata.records=100000;``
+These changes persist only for the Hive session.
 
 Note that due to some poor design decisions in Hive, it would require extra code to enable Hive use multiple mappers with this InputFormat. Until that is added this will only run with a single mapper in Hive.
 
