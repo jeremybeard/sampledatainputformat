@@ -36,7 +36,7 @@ The rules for SampleDataInputFormat can be passed either by MapReduce job proper
     <td>sampledata.fields.{fieldname}.type</td><td>Data type</td><td>"string", "int", "double" or "date"</td>
   </tr>
   <tr>
-    <td>sampledata.fields.{fieldname}.date.format</td><td>Format of date strings</td><td>As per java.util.date, e.g. "yyyy/MM/dd"</td>
+    <td>sampledata.fields.{fieldname}.date.format</td><td>Format of date strings</td><td>As per java.text.SimpleDateFormat, e.g. "yyyy/MM/dd"</td>
   </tr>
   <tr>
     <td>sampledata.fields.{fieldname}.nulls.weight</td><td>Chance that a value will be NULL</td><td>0.0 to 1.0</td>
